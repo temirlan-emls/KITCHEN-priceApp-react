@@ -21,7 +21,7 @@ function App() {
                 />
 
                 <Route
-                    path="/"
+                    path="/kitchen-price-app"
                     element={
                         <ProductPage
                             searchValue={searchValue}
