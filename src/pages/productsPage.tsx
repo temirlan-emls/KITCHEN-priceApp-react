@@ -26,7 +26,7 @@ function ProductPage({ dbData, searchValue }: IProductPage) {
                         return "";
                     })
                     .map((product) => (
-                        <Product product={product} />
+                        <Product product={product} key={product.id}/>
                     ))}
             </Container>
         </>

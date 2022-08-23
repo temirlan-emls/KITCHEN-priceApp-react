@@ -1,5 +1,7 @@
 
 export interface IProduct {
+    id: string,
+    date: string,
     title: string,
     imgLink: string,
     prodLink: string,

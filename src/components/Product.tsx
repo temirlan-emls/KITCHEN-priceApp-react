@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Button, Card, Container, ListGroup } from "react-bootstrap";
+import { useState } from "react";
+import { Badge, Button, Card, Container, ListGroup } from "react-bootstrap";
 import { IProduct } from "../models/product.model";
 
 interface IProductProps {
@@ -9,21 +9,29 @@ interface IProductProps {
 const Product: React.FunctionComponent<IProductProps> = ({
     product,
 }: IProductProps) => {
-    const [details, setDetails] = React.useState(false);
+    const [details, setDetails] = useState(false);
 
     function toCurrencForm(number: number) {
         return new Intl.NumberFormat("ru-KZ", {
             style: "currency",
             currency: "KZT",
-            maximumSignificantDigits: 3,
+            maximumSignificantDigits: 5,
         }).format(number);
     }
 
     const source_price = toCurrencForm(product.price);
+    let kitchen_price;
+    let margin;
+    if (product.price === undefined) {
+        kitchen_price = 0;
+    } else if (product.sourceSite === "PROFTORG") {
+        kitchen_price = toCurrencForm(product.price * 1.25);
+        margin = toCurrencForm(product.price * 1.25 - product.price);
+    } else if (product.sourceSite === "DEDTRADE") {
+        kitchen_price = toCurrencForm(product.price * 1.1);
+        margin = toCurrencForm(product.price * 1.1 - product.price);
+    }
 
-    const kitchen_price = toCurrencForm(product.price * 1.25);
-
-    const margin = toCurrencForm(product.price * 1.25 - product.price);
     return (
         <Card style={{ width: "18rem" }} className="mt-5">
             <Card.Img
@@ -32,6 +40,9 @@ const Product: React.FunctionComponent<IProductProps> = ({
                 style={{ maxHeight: "286px" }}
             />
             <Card.Body>
+                <Badge bg="secondary">
+                    {product.date}
+                </Badge>
                 <Card.Title>{product.title}</Card.Title>
                 <Button
                     variant={details ? "outline-secondary" : "outline-danger"}
@@ -48,13 +59,12 @@ const Product: React.FunctionComponent<IProductProps> = ({
                 )}
                 <ListGroup>
                     <ListGroup.Item>
-                        {product.sourceSite.toLocaleUpperCase()}:{" "}
-                        {source_price}
+                        {product.sourceSite.toLocaleUpperCase()}: {source_price}
                     </ListGroup.Item>
-                    <ListGroup.Item action variant="warning">
-                        Китчен: {kitchen_price}
+                    <ListGroup.Item variant="warning">
+                        KITCHEN.KZ: {kitchen_price}
                     </ListGroup.Item>
-                    <ListGroup.Item action variant="success">
+                    <ListGroup.Item variant="success">
                         Маржа: {margin}
                     </ListGroup.Item>
                 </ListGroup>
