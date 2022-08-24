@@ -30,8 +30,17 @@ const Product: React.FunctionComponent<IProductProps> = ({
     } else if (product.sourceSite === "DEDTRADE") {
         kitchen_price = toCurrencForm(product.price * 1.1);
         margin = toCurrencForm(product.price * 1.1 - product.price);
+    } else if (product.sourceSite === "PROKITCHEN") {
+        kitchen_price = toCurrencForm(product.price * 1.1);
+        margin = toCurrencForm(product.price * 1.1 - product.price);
     }
 
+    let card_code;
+    if (product.title === product.prodCode) {
+        card_code = ''
+    } else if (product.title !== product.prodCode){
+        card_code = product.prodCode
+    }
     return (
         <Card style={{ width: "18rem" }} className="mt-5">
             <Card.Img
@@ -43,7 +52,11 @@ const Product: React.FunctionComponent<IProductProps> = ({
                 <Badge bg="secondary">
                     {product.date}
                 </Badge>
+
                 <Card.Title>{product.title}</Card.Title>
+                <p>
+                   {card_code}
+                </p>
                 <Button
                     variant={details ? "outline-secondary" : "outline-danger"}
                     className="w-100 my-2"
@@ -54,7 +67,7 @@ const Product: React.FunctionComponent<IProductProps> = ({
                 </Button>
                 {details && (
                     <Container>
-                        <Card.Text>{product.desc}</Card.Text>
+                        <Card.Text>{product.desc.replace(/([А-Я])/g, '\n $1').trim()}</Card.Text>
                     </Container>
                 )}
                 <ListGroup>

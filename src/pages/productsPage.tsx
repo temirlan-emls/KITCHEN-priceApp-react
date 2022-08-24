@@ -1,14 +1,15 @@
 import React from "react";
-import {  Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Product from "../components/Product";
 import { IProduct } from "../models/product.model";
 
 interface IProductPage {
     dbData: IProduct[];
     searchValue: string;
+    categoryValue: string[];
 }
 
-function ProductPage({ dbData, searchValue }: IProductPage) {
+function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
     return (
         <>
             <Container className="d-flex flex-wrap justify-content-around">
@@ -19,14 +20,24 @@ function ProductPage({ dbData, searchValue }: IProductPage) {
                         } else if (
                             product.title
                                 .toLowerCase()
+                                .includes(searchValue.toLowerCase()) || product.prodCode
+                                .toLowerCase()
                                 .includes(searchValue.toLowerCase())
                         ) {
                             return product;
                         }
                         return "";
                     })
-                    .map((product) => (
-                        <Product product={product} key={product.id}/>
+                    .filter((product) => {
+                        if (product.sourceSite === categoryValue[0] && product.catergory === categoryValue[1]){
+                            return product;
+                        } else if (categoryValue[0] === 'clear' && categoryValue[1] === 'clear'){
+                            return product;
+                        }
+                        return "";
+                    })
+                    .map((product, index) => (
+                        <Product product={product} key={index} />
                     ))}
             </Container>
         </>

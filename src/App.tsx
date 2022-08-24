@@ -9,10 +9,14 @@ function App() {
     const [searchData, setSeachData] = useState("");
     const searchValue = searchData;
 
+    const [categoryData, setCategoryData] = useState(['clear', 'clear']);
+    const categoryValue = categoryData
+
+    
     const dbData = myData;
     return (
         <>
-            <Header setSeachData={setSeachData}></Header>
+            <Header setSeachData={setSeachData} setCategoryData={setCategoryData}></Header>
 
             <Routes>
                 <Route
@@ -24,6 +28,7 @@ function App() {
                     path="/kitchen-price-app"
                     element={
                         <ProductPage
+                            categoryValue={categoryValue}
                             searchValue={searchValue}
                             dbData={dbData}
                         />
