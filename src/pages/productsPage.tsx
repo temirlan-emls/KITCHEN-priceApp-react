@@ -20,7 +20,8 @@ function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
                         } else if (
                             product.title
                                 .toLowerCase()
-                                .includes(searchValue.toLowerCase()) || product.prodCode
+                                .includes(searchValue.toLowerCase()) ||
+                            product.prodCode
                                 .toLowerCase()
                                 .includes(searchValue.toLowerCase())
                         ) {
@@ -29,9 +30,39 @@ function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
                         return "";
                     })
                     .filter((product) => {
-                        if (product.sourceSite === categoryValue[0] && product.catergory === categoryValue[1]){
+                        if (
+                            product.sourceSite === categoryValue[0] &&
+                            product.catergory === categoryValue[1]
+                        ) {
                             return product;
-                        } else if (categoryValue[0] === 'clear' && categoryValue[1] === 'clear'){
+                        } else if (
+                            categoryValue[0] === "clear" &&
+                            categoryValue[1] === "clear"
+                        ) {
+                            return product;
+                        } else if (
+                            product.catergory === categoryValue[1] &&
+                            categoryValue[1] === "teplo" &&
+                            categoryValue[0] === ""
+                        ) {
+                            return product;
+                        } else if (
+                            product.catergory === categoryValue[1] &&
+                            categoryValue[1] === "holod" &&
+                            categoryValue[0] === ""
+                        ) {
+                            return product;
+                        } else if (
+                            product.catergory === categoryValue[1] &&
+                            categoryValue[1] === "neitral" &&
+                            categoryValue[0] === ""
+                        ) {
+                            return product;
+                        } else if (
+                            product.catergory === categoryValue[1] &&
+                            categoryValue[1] === "elecmeh" &&
+                            categoryValue[0] === ""
+                        ) {
                             return product;
                         }
                         return "";
