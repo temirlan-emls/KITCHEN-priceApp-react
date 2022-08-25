@@ -10,10 +10,16 @@ interface IProductPage {
 }
 
 function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
+
     return (
         <>
             <Container className="d-flex flex-wrap justify-content-around">
-                {dbData
+                {(searchValue === "" &&
+                categoryValue[0] === "clear" &&
+                categoryValue[1] === "clear"
+                    ? dbData.slice(0, 50)
+                    : dbData
+                )
                     .filter((product) => {
                         if (searchValue === "") {
                             return product;
@@ -25,7 +31,7 @@ function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
                                 .toLowerCase()
                                 .includes(searchValue.toLowerCase())
                         ) {
-                            return product;
+                            return product;   
                         }
                         return "";
                     })
@@ -33,6 +39,11 @@ function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
                         if (
                             product.sourceSite === categoryValue[0] &&
                             product.catergory === categoryValue[1]
+                        ) {
+                            return product;
+                        } else if (
+                            categoryValue[0] === "allprod" &&
+                            categoryValue[1] === "allprod"
                         ) {
                             return product;
                         } else if (

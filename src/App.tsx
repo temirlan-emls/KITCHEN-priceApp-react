@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import ProductPage from "./pages/productsPage";
 import myData from "./data/mydata.json";
-import CategoryPage from "./pages/categoryPage";
 
 function App() {
     const [searchData, setSeachData] = useState("");
@@ -19,11 +18,6 @@ function App() {
             <Header setSeachData={setSeachData} setCategoryData={setCategoryData}></Header>
 
             <Routes>
-                <Route
-                    path="/product"
-                    element={<CategoryPage dbData={dbData} />}
-                />
-
                 <Route
                     path="/kitchen-price-app"
                     element={

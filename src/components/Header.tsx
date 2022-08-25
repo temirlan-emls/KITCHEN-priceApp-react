@@ -33,7 +33,12 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
         <>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
                 <Container>
-                    <Navbar.Brand href="#home">
+                    <Navbar.Brand
+                        href="#home"
+                        onClick={() => {
+                            setCategoryData(["clear", "clear"]);
+                        }}
+                    >
                         <img
                             src="https://i.postimg.cc/FHCFJZzc/kitchen-logo.png"
                             width="120"
@@ -51,7 +56,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                     size="sm"
                                     onClick={handleShow}
                                 >
-                                    Что Нового?
+                                    Что Нового? Ver1.7
                                 </Button>
                                 <Offcanvas
                                     show={showPopover}
@@ -59,10 +64,11 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 >
                                     <Offcanvas.Header closeButton>
                                         <Offcanvas.Title>
-                                            Что Нового?
+                                            Что Нового? Ver1.7
                                         </Offcanvas.Title>
                                     </Offcanvas.Header>
                                     <Offcanvas.Body>
+                                        <h4>24/08/2022</h4>
                                         <ul>
                                             <li>Добавил PROKITCHEN</li>
                                             <li>
@@ -77,12 +83,27 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                                 Добавил оверлей "Что нового?"
                                             </li>
                                         </ul>
+                                        <h4>25/08/2022</h4>
+                                        <ul>
+                                            <li>
+                                                Добавил крестик (чтобы поиск очистить)
+                                            </li>
+                                            <li>
+                                                Добавил Все компании (All product)
+                                            </li>
+                                            <li>
+                                                Ограничить 50 штук
+                                            </li>
+                                            <li>Добавил реквизиты (можно скачать в PDF или скопировать в буфер)</li>
+                                        </ul>   
                                     </Offcanvas.Body>
+                                    
                                 </Offcanvas>
                             </>
                             <NavDropdown
                                 title="Реквизиты"
                                 id="collasible-nav-dropdown"
+                                className='fw-bold'
                             >
                                 <NavDropdown.Item
                                     href="#COPY/BK"
@@ -90,7 +111,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                         navigator.clipboard.writeText(BKreks);
                                         swal(
                                             "Скопированно!",
-                                            'Реквизиты ТОО "BK Trading Company" в буфер обмена',
+                                            'Реквизиты ТОО "BK Trading Company" в буфере обмена',
                                             "success"
                                         );
                                     }}
@@ -116,7 +137,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                         );
                                         swal(
                                             "Скопированно!",
-                                            'Реквизиты ТОО "Kitchen.kz в буфер обмена',
+                                            'Реквизиты ТОО "Kitchen.kz в буфере обмена',
                                             "success"
                                         );
                                     }}
@@ -141,7 +162,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROKITCHEN/unknow"
                                     onClick={() => {
-                                        setCategoryData(["clear", "clear"]);
+                                        setCategoryData(["allprod", "allprod"]);
                                     }}
                                 >
                                     All Products
