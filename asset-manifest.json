@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/kitchen-price-app/static/css/main.e6c13ad2.css",
-    "main.js": "/kitchen-price-app/static/js/main.6bd64650.js",
+    "main.js": "/kitchen-price-app/static/js/main.0eca472c.js",
     "index.html": "/kitchen-price-app/index.html",
     "main.e6c13ad2.css.map": "/kitchen-price-app/static/css/main.e6c13ad2.css.map",
-    "main.6bd64650.js.map": "/kitchen-price-app/static/js/main.6bd64650.js.map"
+    "main.0eca472c.js.map": "/kitchen-price-app/static/js/main.0eca472c.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.6bd64650.js"
+    "static/js/main.0eca472c.js"
   ]
 }
