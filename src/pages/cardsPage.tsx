@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Container, ListGroup } from "react-bootstrap";
 import { IProduct } from "../models/product.model";
 import CardItem from "../components/CardItem";
@@ -9,9 +10,18 @@ interface ICardPage {
 }
 
 function CardPage({ dbData, cardValue }: ICardPage) {
+    function toCurrencForm(number: number) {
+        return new Intl.NumberFormat("ru-KZ", {
+            style: "currency",
+            currency: "KZT",
+            maximumSignificantDigits: 5,
+        }).format(number);
+    }
+    const navigate = useNavigate();
     const clearStorage = () => {
         window.localStorage.clear();
         window.location.reload();
+        navigate("/cardPage");
     };
 
     const imgWrapStyle = {
@@ -27,8 +37,29 @@ function CardPage({ dbData, cardValue }: ICardPage) {
         width: "150px",
     };
 
+    const [prodPrice, setGetPrice] = useState([]);
+    let filteredPrice = prodPrice.slice(0, prodPrice.length / 2);
+    let prodPriceSum = 0;
+    for (let i = 0; i < filteredPrice.length; i++) {
+        prodPriceSum += filteredPrice[i];
+    }
+
+    const [kitchenPrice, setGetKithcenPrice] = useState([]);
+    let filteredKitchen = kitchenPrice.slice(0, prodPrice.length / 2);
+    let kitchenPriceSum = 0;
+    for (let i = 0; i < filteredKitchen.length; i++) {
+        kitchenPriceSum += filteredKitchen[i];
+    }
+
+    const [margin, setGetMargin] = useState([]);
+    let filteredMargin = margin.slice(0, prodPrice.length / 2);
+    let marginSum = 0;
+    for (let i = 0; i < filteredMargin.length; i++) {
+        marginSum += filteredMargin[i];
+    }
+
     return (
-        <>
+        <Container className="d-flex flex-wrap justify-content-around">
             <Container className="d-flex justify-content-around mt-5">
                 {" "}
                 <Button
@@ -71,19 +102,22 @@ function CardPage({ dbData, cardValue }: ICardPage) {
                                 style={priceWrapStyle}
                                 className="fw-bold text-center"
                             >
-                                PROFTORG
+                                PROFTORG{"\n"}
+                                {toCurrencForm(prodPriceSum)}
                             </ListGroup.Item>
                             <ListGroup.Item
                                 style={priceWrapStyle}
                                 className="fw-bold text-center"
                             >
-                                KITCHEN
+                                KITCHEN{"\n"}
+                                {toCurrencForm(kitchenPriceSum)}
                             </ListGroup.Item>
                             <ListGroup.Item
                                 style={priceWrapStyle}
                                 className="fw-bold text-center"
                             >
-                                МАРЖА
+                                МАРЖА{"     \n"}
+                                {toCurrencForm(marginSum)}
                             </ListGroup.Item>
                         </ListGroup>
                         {cardValue.map((item: any) =>
@@ -95,13 +129,19 @@ function CardPage({ dbData, cardValue }: ICardPage) {
                                     return "";
                                 })
                                 .map((product, index) => (
-                                    <CardItem product={product} key={index} />
+                                    <CardItem
+                                        product={product}
+                                        key={index}
+                                        setGetPrice={setGetPrice}
+                                        setGetKithcenPrice={setGetKithcenPrice}
+                                        setGetMargin={setGetMargin}
+                                    />
                                 ))
                         )}
                     </ListGroup>
                 </Container>
             </div>
-        </>
+        </Container>
     );
 }
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import ProductPage from "./pages/productsPage";
+import Footer from "./components/Footer";
 import CardPage from "./pages/cardsPage";
 import myData from "./data/mydata.json";
 import useLocalStorage from "./hooks/useLocalStrorage";
@@ -35,23 +36,28 @@ function App() {
                 navigateMainPage={navigateMainPage}
             ></Header>
 
-            <Routes>
-                <Route
-                    path="/cardPage"
-                    element={<CardPage dbData={dbData} cardValue={cardValue} />}
-                />
-                <Route
-                    path="/kitchen-price-app"
-                    element={
-                        <ProductPage
-                            setCardValue={setCardValue}
-                            categoryValue={categoryValue}
-                            searchValue={searchValue}
-                            dbData={dbData}
-                        />
-                    }
-                />
-            </Routes>
+            <div className="mt-5">
+                <Routes>
+                    <Route
+                        path="/cardPage"
+                        element={
+                            <CardPage dbData={dbData} cardValue={cardValue} />
+                        }
+                    />
+                    <Route
+                        path="/kitchen-price-app"
+                        element={
+                            <ProductPage
+                                setCardValue={setCardValue}
+                                categoryValue={categoryValue}
+                                searchValue={searchValue}
+                                dbData={dbData}
+                            />
+                        }
+                    />
+                </Routes>
+            </div>
+            <Footer></Footer>
         </>
     );
 }

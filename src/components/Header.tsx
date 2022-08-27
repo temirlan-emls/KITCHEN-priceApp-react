@@ -27,6 +27,12 @@ const Header = ({
     const toMainPage = () => {
         navigateMainPage();
     };
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
     const KITCHENreks =
         'ТОО "Kitchen.kz" \nБанк получатель: АО «Kaspi Bank» \nБИК: CASPKZKA \nБИН/ИИН: 201140004179 \nНомер счета KZT: KZ76722S000015686769 \nАдрес: Алматы, улица Гоголя, дом 201/92 \nКБе: 17';
     const BKreks =
@@ -41,7 +47,13 @@ const Header = ({
 
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+            <Navbar
+                collapseOnSelect
+                expand="lg"
+                bg="light"
+                variant="light"
+                className="fixed-top"
+            >
                 <Container>
                     <Navbar.Brand
                         href="#home"
@@ -112,11 +124,10 @@ const Header = ({
                                         </ul>
                                         <h4>27/08/2022 06:30 am</h4>
                                         <ul>
+                                            <li>Добавил корзину</li>
                                             <li>
-                                                Добавил корзину
-                                            </li>
-                                            <li>
-                                                Кнопка очистики корзины (в самой корзине)
+                                                Кнопка очистики корзины (в самой
+                                                корзине)
                                             </li>
                                         </ul>
                                     </Offcanvas.Body>
@@ -403,17 +414,29 @@ const Header = ({
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            <Button
-                                variant="outline-warning fw-bold"
-                                style={{ color: "black" }}
-                                className="mx-2"
-                                onClick={navigateToCardPage}
-                            >
-                                {cardValue.length
-                                    ? "В Корзине   "
-                                    : "Корзина   "}
-                                <Badge bg="secondary">{cardValue.length}</Badge>
-                            </Button>
+                            {cardValue.length ? (
+                                <Button
+                                    variant="outline-warning fw-bold"
+                                    style={{ color: "black" }}
+                                    className="mx-2"
+                                    onClick={navigateToCardPage}
+                                >
+                                    {"В Корзине   "}
+                                    <Badge bg="secondary">
+                                        {cardValue.length}
+                                    </Badge>
+                                </Button>
+                            ) : (
+                                <Button
+                                    variant="outline-warning fw-bold"
+                                    style={{ color: "black" }}
+                                    className="mx-2"
+                                    disabled
+                                >
+                                    {"Корзина   "}
+                                    <Badge bg="secondary">0</Badge>
+                                </Button>
+                            )}
                         </Nav>
                         {/*  */}
                         <Nav>
@@ -423,9 +446,10 @@ const Header = ({
                                     placeholder="Search"
                                     className="me-2"
                                     aria-label="Search"
-                                    onChange={(event) =>
-                                        setSeachData(event?.target.value)
-                                    }
+                                    onChange={(event) => {
+                                        setSeachData(event?.target.value);
+                                        scrollToTop();
+                                    }}
                                     ref={ref}
                                 />
                                 <CloseButton

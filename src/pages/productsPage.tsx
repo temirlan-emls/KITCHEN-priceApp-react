@@ -22,7 +22,7 @@ function ProductPage({
                 {(searchValue === "" &&
                 categoryValue[0] === "clear" &&
                 categoryValue[1] === "clear"
-                    ? dbData.slice(0, 50)
+                    ? dbData.slice(0, 52)
                     : dbData
                 )
                     .filter((product) => {
