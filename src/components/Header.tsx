@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useRef } from "react";
 import {
+    Badge,
     Button,
     CloseButton,
     Container,
@@ -13,11 +14,19 @@ import {
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
-const Header = ({ setSeachData, setCategoryData }: any) => {
+const Header = ({
+    setSeachData,
+    setCategoryData,
+    navigateToCardPage,
+    navigateMainPage,
+    cardValue,
+}: any) => {
     const [showPopover, setShowPopover] = useState(false);
     const handleClose = () => setShowPopover(false);
     const handleShow = () => setShowPopover(true);
-
+    const toMainPage = () => {
+        navigateMainPage();
+    };
     const KITCHENreks =
         'ТОО "Kitchen.kz" \nБанк получатель: АО «Kaspi Bank» \nБИК: CASPKZKA \nБИН/ИИН: 201140004179 \nНомер счета KZT: KZ76722S000015686769 \nАдрес: Алматы, улица Гоголя, дом 201/92 \nКБе: 17';
     const BKreks =
@@ -29,6 +38,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
         input.value = "";
         setSeachData("");
     };
+
     return (
         <>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -36,6 +46,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                     <Navbar.Brand
                         href="#home"
                         onClick={() => {
+                            toMainPage();
                             setCategoryData(["clear", "clear"]);
                         }}
                     >
@@ -52,11 +63,11 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                         <Nav className="me-auto">
                             <>
                                 <Button
-                                    variant="outline-secondary"
+                                    variant="outline-success fw-bold"
                                     size="sm"
                                     onClick={handleShow}
                                 >
-                                    Что Нового? Ver1.7
+                                    Что Нового? Ver1.8
                                 </Button>
                                 <Offcanvas
                                     show={showPopover}
@@ -64,7 +75,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 >
                                     <Offcanvas.Header closeButton>
                                         <Offcanvas.Title>
-                                            Что Нового? Ver1.7
+                                            Что Нового? Ver1.8
                                         </Offcanvas.Title>
                                     </Offcanvas.Header>
                                     <Offcanvas.Body>
@@ -86,24 +97,36 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                         <h4>25/08/2022</h4>
                                         <ul>
                                             <li>
-                                                Добавил крестик (чтобы поиск очистить)
+                                                Добавил крестик (чтобы поиск
+                                                очистить)
                                             </li>
                                             <li>
-                                                Добавил Все компании (All product)
+                                                Добавил Все компании (All
+                                                product)
+                                            </li>
+                                            <li>Ограничить 50 штук</li>
+                                            <li>
+                                                Добавил реквизиты (можно скачать
+                                                в PDF или скопировать в буфер)
+                                            </li>
+                                        </ul>
+                                        <h4>27/08/2022 06:30 am</h4>
+                                        <ul>
+                                            <li>
+                                                Добавил корзину
                                             </li>
                                             <li>
-                                                Ограничить 50 штук
+                                                Кнопка очистики корзины (в самой корзине)
                                             </li>
-                                            <li>Добавил реквизиты (можно скачать в PDF или скопировать в буфер)</li>
-                                        </ul>   
+                                        </ul>
                                     </Offcanvas.Body>
-                                    
                                 </Offcanvas>
                             </>
                             <NavDropdown
                                 title="Реквизиты"
                                 id="collasible-nav-dropdown"
-                                className='fw-bold'
+                                className="fw-bold"
+                                style={{ color: "black" }}
                             >
                                 <NavDropdown.Item
                                     href="#COPY/BK"
@@ -160,8 +183,9 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 id="collasible-nav-dropdown"
                             >
                                 <NavDropdown.Item
-                                    href="#PROKITCHEN/unknow"
+                                    href="#All/ALL"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["allprod", "allprod"]);
                                     }}
                                 >
@@ -171,6 +195,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#All/teplo"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["", "teplo"]);
                                     }}
                                 >
@@ -180,6 +205,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#All/holod"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["", "holod"]);
                                     }}
                                 >
@@ -189,6 +215,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#All/neitral"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["", "neitral"]);
                                     }}
                                 >
@@ -198,6 +225,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#All/elecmeh"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["", "elecmeh"]);
                                     }}
                                 >
@@ -211,6 +239,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROFTORG/teplo"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["PROFTORG", "teplo"]);
                                     }}
                                 >
@@ -220,6 +249,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROFTORG/holod"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["PROFTORG", "holod"]);
                                     }}
                                 >
@@ -229,6 +259,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROFTORG/neitral"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "PROFTORG",
                                             "neitral",
@@ -241,6 +272,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROFTORG/elecmeh"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "PROFTORG",
                                             "elecmeh",
@@ -257,6 +289,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#DEDTRADE/teplo"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["DEDTRADE", "teplo"]);
                                     }}
                                 >
@@ -266,6 +299,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#DEDTRADE/holod"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData(["DEDTRADE", "holod"]);
                                     }}
                                 >
@@ -275,6 +309,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#DEDTRADE/neitral"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "DEDTRADE",
                                             "neitral",
@@ -287,6 +322,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#DEDTRADE/elecmeh"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "DEDTRADE",
                                             "elecmeh",
@@ -303,6 +339,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROKITCHEN/teplo"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "PROKITCHEN",
                                             "teplo",
@@ -315,6 +352,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROKITCHEN/holod"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "PROKITCHEN",
                                             "holod",
@@ -327,6 +365,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROKITCHEN/neitral"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "PROKITCHEN",
                                             "neitral",
@@ -339,6 +378,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROKITCHEN/elecmeh"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "PROKITCHEN",
                                             "elecmeh",
@@ -351,6 +391,7 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 <NavDropdown.Item
                                     href="#PROKITCHEN/unknow"
                                     onClick={() => {
+                                        toMainPage();
                                         setCategoryData([
                                             "PROKITCHEN",
                                             "unknow",
@@ -361,6 +402,20 @@ const Header = ({ setSeachData, setCategoryData }: any) => {
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
+                        <Nav>
+                            <Button
+                                variant="outline-warning fw-bold"
+                                style={{ color: "black" }}
+                                className="mx-2"
+                                onClick={navigateToCardPage}
+                            >
+                                {cardValue.length
+                                    ? "В Корзине   "
+                                    : "Корзина   "}
+                                <Badge bg="secondary">{cardValue.length}</Badge>
+                            </Button>
+                        </Nav>
+                        {/*  */}
                         <Nav>
                             <Form className="d-flex">
                                 <Form.Control

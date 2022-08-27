@@ -7,10 +7,15 @@ interface IProductPage {
     dbData: IProduct[];
     searchValue: string;
     categoryValue: string[];
+    setCardValue: any;
 }
 
-function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
-
+function ProductPage({
+    dbData,
+    searchValue,
+    categoryValue,
+    setCardValue,
+}: IProductPage) {
     return (
         <>
             <Container className="d-flex flex-wrap justify-content-around">
@@ -31,7 +36,7 @@ function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
                                 .toLowerCase()
                                 .includes(searchValue.toLowerCase())
                         ) {
-                            return product;   
+                            return product;
                         }
                         return "";
                     })
@@ -79,7 +84,11 @@ function ProductPage({ dbData, searchValue, categoryValue }: IProductPage) {
                         return "";
                     })
                     .map((product, index) => (
-                        <Product product={product} key={index} />
+                        <Product
+                            product={product}
+                            key={index}
+                            setCardValue={setCardValue}
+                        />
                     ))}
             </Container>
         </>

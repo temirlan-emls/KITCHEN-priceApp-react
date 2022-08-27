@@ -4,13 +4,14 @@ import { IProduct } from "../models/product.model";
 
 interface IProductProps {
     product: IProduct;
+    setCardValue: any;
 }
 
 const Product: React.FunctionComponent<IProductProps> = ({
     product,
+    setCardValue,
 }: IProductProps) => {
     const [details, setDetails] = useState(false);
-
     function toCurrencForm(number: number) {
         return new Intl.NumberFormat("ru-KZ", {
             style: "currency",
@@ -37,9 +38,9 @@ const Product: React.FunctionComponent<IProductProps> = ({
 
     let card_code;
     if (product.title === product.prodCode) {
-        card_code = ''
-    } else if (product.title !== product.prodCode){
-        card_code = product.prodCode
+        card_code = "";
+    } else if (product.title !== product.prodCode) {
+        card_code = product.prodCode;
     }
     return (
         <Card style={{ width: "18rem" }} className="mt-5">
@@ -49,14 +50,10 @@ const Product: React.FunctionComponent<IProductProps> = ({
                 style={{ maxHeight: "286px" }}
             />
             <Card.Body>
-                <Badge bg="secondary">
-                    {product.date}
-                </Badge>
+                <Badge bg="secondary">{product.date}</Badge>
 
                 <Card.Title>{product.title}</Card.Title>
-                <p>
-                   {card_code}
-                </p>
+                <p>{card_code}</p>
                 <Button
                     variant={details ? "outline-secondary" : "outline-danger"}
                     className="w-100 my-2"
@@ -67,7 +64,9 @@ const Product: React.FunctionComponent<IProductProps> = ({
                 </Button>
                 {details && (
                     <Container>
-                        <Card.Text>{product.desc.replace(/([А-Я])/g, '\n $1').trim()}</Card.Text>
+                        <Card.Text>
+                            {product.desc.replace(/([А-Я])/g, "\n $1").trim()}
+                        </Card.Text>
                     </Container>
                 )}
                 <ListGroup>
@@ -91,6 +90,22 @@ const Product: React.FunctionComponent<IProductProps> = ({
                     </Card.Link>
                 </Card.Body>
             </Card.Body>
+            <Card.Footer>
+                <Button
+                    variant="outline-warning fw-bold"
+                    style={{ color: "black" }}
+                    className="w-100 my-2"
+                    size="sm"
+                    onClick={() => {
+                        setCardValue((prevNames: string[]) => [
+                            ...prevNames,
+                            product.id,
+                        ]);
+                    }}
+                >
+                    ДОБАВИТЬ В КОРЗИНУ
+                </Button>
+            </Card.Footer>
         </Card>
     );
 };
