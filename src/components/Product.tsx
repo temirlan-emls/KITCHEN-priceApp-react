@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Badge, Button, Card, Container, ListGroup } from "react-bootstrap";
+import {
+    Badge,
+    Button,
+    Card,
+    Container,
+    ListGroup,
+    ButtonGroup,
+} from "react-bootstrap";
 import { IProduct } from "../models/product.model";
 
 interface IProductProps {
@@ -42,15 +49,46 @@ const Product: React.FunctionComponent<IProductProps> = ({
     } else if (product.title !== product.prodCode) {
         card_code = product.prodCode;
     }
+
+    const countWrapStyle = {
+        borderTop: "1px solid rgb(255,193,7)",
+        borderBottom: "1px solid rgb(255,193,7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    };
+
+    const [counterNum, setCounterNum] = useState(1);
+
+    const incrCount = () => {
+        setCounterNum(counterNum + 1);
+    };
+    const decrCount = () => {
+        if (counterNum > 1) {
+            setCounterNum(counterNum - 1);
+        }
+    };
+    const multi = (str: string, rate: number): string[] => {
+        let tmp: string[] = [];
+        for (let i = 0; i < rate; i++) {
+            tmp.push(str);
+        }
+        return tmp;
+    };
     return (
-        <Card style={{ width: "18rem" }} className="mt-5">
+        <Card style={{ maxWidth: "18rem", minWidth: "8rem" }} className="mt-5">
             <Card.Img
                 variant="top"
                 src={product.imgLink}
                 style={{ maxHeight: "286px" }}
             />
             <Card.Body>
-                <Badge bg="secondary">{product.date}</Badge>
+                <h6>
+                    <Badge bg="secondary" className="w-100">
+                        LAST UPDATE:{" "}
+                        {product.date.replace(".", "/").replace(".", "/")}
+                    </Badge>
+                </h6>
 
                 <Card.Title>{product.title}</Card.Title>
                 <p>{card_code}</p>
@@ -91,20 +129,41 @@ const Product: React.FunctionComponent<IProductProps> = ({
                 </Card.Body>
             </Card.Body>
             <Card.Footer>
-                <Button
-                    variant="outline-warning fw-bold"
-                    style={{ color: "black" }}
-                    className="w-100 my-2"
-                    size="sm"
-                    onClick={() => {
-                        setCardValue((prevNames: string[]) => [
-                            ...prevNames,
-                            product.id,
-                        ]);
-                    }}
-                >
-                    ДОБАВИТЬ В КОРЗИНУ
-                </Button>
+                <ButtonGroup>
+                    <Button
+                        
+                        size="sm"
+                        variant="outline-warning fw-bold text-dark"
+                        onClick={decrCount}
+                    >
+                        -
+                    </Button>
+                    <div style={countWrapStyle}>
+                        <div className="mx-2 fw-bold">{counterNum}</div>
+                    </div>
+                    <Button
+                        
+                        size="sm"
+                        variant="outline-warning fw-bold text-dark"
+                        onClick={incrCount}
+                    >
+                        +
+                    </Button>
+                    <Button
+                        variant="warning fw-bold"
+                        style={{ color: "black" }}
+                        className="w-100"
+                        size="sm"
+                        onClick={() => {
+                            setCardValue((prevNames: string[]) => [
+                                ...prevNames,
+                                ...multi(product.id, counterNum),
+                            ]);
+                        }}
+                    >
+                        ДОБАВИТЬ В КОРЗИНУ
+                    </Button>
+                </ButtonGroup>
             </Card.Footer>
         </Card>
     );

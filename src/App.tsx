@@ -36,27 +36,24 @@ function App() {
                 navigateMainPage={navigateMainPage}
             ></Header>
 
-            <div className="mt-5">
-                <Routes>
-                    <Route
-                        path="/cardPage"
-                        element={
-                            <CardPage dbData={dbData} cardValue={cardValue} />
-                        }
-                    />
-                    <Route
-                        path="/"
-                        element={
-                            <ProductPage
-                                setCardValue={setCardValue}
-                                categoryValue={categoryValue}
-                                searchValue={searchValue}
-                                dbData={dbData}
-                            />
-                        }
-                    />
-                </Routes>
-            </div>
+            <Routes>
+                <Route
+                    path="/cardPage"
+                    element={<CardPage dbData={dbData} cardValue={cardValue} />}
+                />
+                <Route
+                    path="/"
+                    element={
+                        <ProductPage
+                            setCardValue={setCardValue}
+                            categoryValue={categoryValue}
+                            searchValue={searchValue}
+                            dbData={dbData}
+                        />
+                    }
+                />
+            </Routes>
+
             <Footer></Footer>
         </>
     );

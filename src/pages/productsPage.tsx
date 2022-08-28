@@ -18,7 +18,7 @@ function ProductPage({
 }: IProductPage) {
     return (
         <>
-            <Container className="d-flex flex-wrap justify-content-around">
+            <Container className="d-flex flex-wrap justify-content-around mt-5">
                 {(searchValue === "" &&
                 categoryValue[0] === "clear" &&
                 categoryValue[1] === "clear"

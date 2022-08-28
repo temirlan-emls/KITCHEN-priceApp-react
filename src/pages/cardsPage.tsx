@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, ListGroup } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import { IProduct } from "../models/product.model";
 import { useNavigate } from "react-router-dom";
 import CardItem from "../components/CardItem";
@@ -24,102 +24,66 @@ function CardPage({ dbData, cardValue }: ICardPage) {
         window.location.reload();
     };
 
-    const imgWrapStyle = {
-        width: "230px",
-    };
-    const titleWrapStyle = {
-        width: "150px",
-    };
-    const statsWrapStyle = {
-        width: "450px",
-    };
-    const priceWrapStyle = {
-        width: "150px",
-    };
-
     const [prodPrice, setGetPrice] = useState([]);
-    let filteredPrice = prodPrice.slice(0, prodPrice.length / 2);
     let prodPriceSum = 0;
-    for (let i = 0; i < filteredPrice.length; i++) {
-        prodPriceSum += filteredPrice[i];
+    for (let i = 0; i < prodPrice.length; i++) {
+        prodPriceSum += prodPrice[i];
     }
 
     const [kitchenPrice, setGetKithcenPrice] = useState([]);
-    let filteredKitchen = kitchenPrice.slice(0, prodPrice.length / 2);
     let kitchenPriceSum = 0;
-    for (let i = 0; i < filteredKitchen.length; i++) {
-        kitchenPriceSum += filteredKitchen[i];
+    for (let i = 0; i < kitchenPrice.length; i++) {
+        kitchenPriceSum += kitchenPrice[i];
     }
 
     const [margin, setGetMargin] = useState([]);
-    let filteredMargin = margin.slice(0, prodPrice.length / 2);
     let marginSum = 0;
-    for (let i = 0; i < filteredMargin.length; i++) {
-        marginSum += filteredMargin[i];
+    for (let i = 0; i < margin.length; i++) {
+        marginSum += margin[i];
     }
 
     return (
-        <Container className="d-flex flex-wrap justify-content-around">
-            <Container className="d-flex justify-content-around mt-5">
-                {" "}
-                <Button
-                    variant="outline-warning fw-bold"
-                    style={{ color: "black" }}
-                    onClick={clearStorage}
-                >
-                    ОЧИСТИТЬ КОРЗИНУ
-                </Button>
-                <Button variant="secondary" disabled>
-                    DOWLOAD PDF
-                </Button>
-                <Button variant="secondary" disabled>
-                    DOWLOAD EXCEL
-                </Button>
-            </Container>
-            <div id="pdf_content">
-                <Container className="d-flex flex-wrap justify-content-around">
-                    <ListGroup className="mt-5">
-                        <ListGroup horizontal>
-                            <ListGroup.Item
-                                style={imgWrapStyle}
-                                className="fw-bold text-center"
-                            >
-                                ФОТО
-                            </ListGroup.Item>
-                            <ListGroup.Item
-                                style={titleWrapStyle}
-                                className="fw-bold text-center"
-                            >
-                                НАЗВАНИЕ
-                            </ListGroup.Item>
-                            <ListGroup.Item
-                                style={statsWrapStyle}
-                                className="fw-bold text-center"
-                            >
-                                ОПИСАНИЕ
-                            </ListGroup.Item>
-                            <ListGroup.Item
-                                style={priceWrapStyle}
-                                className="fw-bold text-center"
-                            >
+        <>
+            <Container className="d-flex flex-wrap justify-content-around mt-5">
+                <Container className="d-flex justify-content-around mt-5">
+                    {" "}
+                    <Button
+                        variant="outline-warning fw-bold"
+                        style={{ color: "black" }}
+                        onClick={clearStorage}
+                        size="sm"
+                    >
+                        ОЧИСТИТЬ КОРЗИНУ
+                    </Button>
+                    <Button variant="secondary" disabled size="sm">
+                        DOWLOAD PDF
+                    </Button>
+                    <Button variant="secondary" disabled size="sm">
+                        DOWLOAD EXCEL
+                    </Button>
+                </Container>
+
+                <Table bordered responsive className="mt-5 text-center">
+                    <thead>
+                        <tr>
+                            <th>ФОТО</th>
+                            <th>НАЗВАНИЕ</th>
+                            <th>ОПИСАНИЕ</th>
+                            <th>
                                 PROFTORG{"\n"}
                                 {toCurrencForm(prodPriceSum)}
-                            </ListGroup.Item>
-                            <ListGroup.Item
-                                style={priceWrapStyle}
-                                className="fw-bold text-center"
-                            >
+                            </th>
+                            <th>
                                 KITCHEN{"\n"}
                                 {toCurrencForm(kitchenPriceSum)}
-                            </ListGroup.Item>
-                            <ListGroup.Item
-                                style={priceWrapStyle}
-                                className="fw-bold text-center"
-                            >
-                                МАРЖА{"     \n"}
+                            </th>
+                            <th>
+                                МАРЖА{"\n"}
                                 {toCurrencForm(marginSum)}
-                            </ListGroup.Item>
-                        </ListGroup>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody >
                         {cardValue.map((item: any) =>
                             dbData
                                 .filter((product) => {
@@ -138,10 +102,10 @@ function CardPage({ dbData, cardValue }: ICardPage) {
                                     />
                                 ))
                         )}
-                    </ListGroup>
-                </Container>
-            </div>
-        </Container>
+                    </tbody>
+                </Table>
+            </Container>
+        </>
     );
 }
 

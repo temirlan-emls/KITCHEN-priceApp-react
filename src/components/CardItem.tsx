@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 import { IProduct } from "../models/product.model";
-import { Scrollbars } from "react-custom-scrollbars-2";
+// import { Scrollbars } from "react-custom-scrollbars-2";
 
 interface ICardItemProps {
     product: IProduct;
@@ -50,23 +50,6 @@ const CardItem: React.FunctionComponent<ICardItemProps> = ({
         marginFormatted = toCurrencForm(product.price * 1.1 - product.price);
     }
 
-    const imgWrapStyle = {
-        width: "230px",
-        height: "230px",
-        padding: "2px",
-    };
-    const titleWrapStyle = {
-        width: "150px",
-    };
-    const statsWrapStyle = {
-        width: "450px",
-        maxHeight: "250px",
-        overflow: "auto",
-    };
-    const priceWrapStyle = {
-        width: "150px",
-    };
-
     useEffect(() => {
         setGetPrice((preState: any) => [...preState, Number(product.price)]);
 
@@ -88,32 +71,25 @@ const CardItem: React.FunctionComponent<ICardItemProps> = ({
 
     return (
         <>
-            <ListGroup horizontal>
-                <ListGroup.Item style={imgWrapStyle}>
+            <Table className="m-0 "></Table>
+            <tr>
+                <th className="p-0">
+                    {" "}
                     <Card.Img
                         variant="top"
                         src={product.imgLink}
-                        style={{ objectFit: "fill" }}
+                        style={{
+                            objectFit: "fill",
+                            maxWidth: "230px",
+                        }}
                     />
-                </ListGroup.Item>
-                <ListGroup.Item style={titleWrapStyle} className="text-center">
-                    {product.title}
-                </ListGroup.Item>
-                <ListGroup.Item style={statsWrapStyle} className="text-center">
-                    <Scrollbars>
-                        {product.desc.replace(/([А-Я])/g, "\n $1").trim()}
-                    </Scrollbars>
-                </ListGroup.Item>
-                <ListGroup.Item style={priceWrapStyle} className="text-center">
-                    {source_price}
-                </ListGroup.Item>
-                <ListGroup.Item style={priceWrapStyle} className="text-center">
-                    {kitchenPriceFormatted}
-                </ListGroup.Item>
-                <ListGroup.Item style={priceWrapStyle} className="text-center">
-                    {marginFormatted}
-                </ListGroup.Item>
-            </ListGroup>
+                </th>
+                <th className="fw-normal">{product.title}</th>
+                <th className="fw-normal">{product.desc.replace(/([А-Я])/g, "\n $1").trim()}</th>
+                <th className="fw-normal">{source_price}</th>
+                <th className="fw-normal">{kitchenPriceFormatted}</th>
+                <th className="fw-normal">{marginFormatted}</th>
+            </tr>
         </>
     );
 };
