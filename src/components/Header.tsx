@@ -79,7 +79,7 @@ const Header = ({
                                     size="sm"
                                     onClick={handleShow}
                                 >
-                                    Что Нового? Ver1.8
+                                    Что Нового? Ver1.81
                                 </Button>
                                 <Offcanvas
                                     show={showPopover}
@@ -87,7 +87,7 @@ const Header = ({
                                 >
                                     <Offcanvas.Header closeButton>
                                         <Offcanvas.Title>
-                                            Что Нового? Ver1.8
+                                            Что Нового? Ver1.81
                                         </Offcanvas.Title>
                                     </Offcanvas.Header>
                                     <Offcanvas.Body>
@@ -116,7 +116,7 @@ const Header = ({
                                                 Добавил Все компании (All
                                                 product)
                                             </li>
-                                            <li>Ограничить 50 штук</li>
+                                            <li>Ограничить 52 штук</li>
                                             <li>
                                                 Добавил реквизиты (можно скачать
                                                 в PDF или скопировать в буфер)
@@ -128,6 +128,13 @@ const Header = ({
                                             <li>
                                                 Кнопка очистики корзины (в самой
                                                 корзине)
+                                            </li>
+                                        </ul>
+                                        <h4>28/08/2022</h4>
+                                        <ul>
+                                            <li>Исправил корзину</li>
+                                            <li>
+                                                В корзине появилась сумма цен
                                             </li>
                                         </ul>
                                     </Offcanvas.Body>

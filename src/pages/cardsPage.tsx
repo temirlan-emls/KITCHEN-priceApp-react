@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button, Container, ListGroup } from "react-bootstrap";
 import { IProduct } from "../models/product.model";
+import { useNavigate } from "react-router-dom";
 import CardItem from "../components/CardItem";
 
 interface ICardPage {
@@ -20,8 +20,8 @@ function CardPage({ dbData, cardValue }: ICardPage) {
     const navigate = useNavigate();
     const clearStorage = () => {
         window.localStorage.clear();
+        navigate("/");
         window.location.reload();
-        navigate("/cardPage");
     };
 
     const imgWrapStyle = {

@@ -15,7 +15,7 @@ function App() {
     };
 
     const navigateMainPage = () => {
-        navigate("/kitchen-price-app");
+        navigate("/");
     };
 
     const [searchData, setSeachData] = useState("");
@@ -45,7 +45,7 @@ function App() {
                         }
                     />
                     <Route
-                        path="/kitchen-price-app"
+                        path="/"
                         element={
                             <ProductPage
                                 setCardValue={setCardValue}
