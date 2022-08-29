@@ -7,7 +7,7 @@ interface IProductPage {
     dbData: IProduct[];
     searchValue: string;
     categoryValue: string[];
-    setCardValue: any;
+    setCardValue: any; 
 }
 
 function ProductPage({

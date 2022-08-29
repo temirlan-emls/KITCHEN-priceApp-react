@@ -8,6 +8,7 @@ import {
     ButtonGroup,
 } from "react-bootstrap";
 import { IProduct } from "../models/product.model";
+import { useSnackbar } from "notistack";
 
 interface IProductProps {
     product: IProduct;
@@ -75,6 +76,15 @@ const Product: React.FunctionComponent<IProductProps> = ({
         }
         return tmp;
     };
+
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleClick = () => {
+        enqueueSnackbar(`Добавлено в корзину ${counterNum} шт.`, {
+            variant: "success",
+            autoHideDuration: 1000,
+        });
+    };
     return (
         <Card style={{ maxWidth: "18rem", minWidth: "8rem" }} className="mt-5">
             <Card.Img
@@ -131,7 +141,6 @@ const Product: React.FunctionComponent<IProductProps> = ({
             <Card.Footer>
                 <ButtonGroup>
                     <Button
-                        
                         size="sm"
                         variant="outline-warning fw-bold text-dark"
                         onClick={decrCount}
@@ -142,7 +151,6 @@ const Product: React.FunctionComponent<IProductProps> = ({
                         <div className="mx-2 fw-bold">{counterNum}</div>
                     </div>
                     <Button
-                        
                         size="sm"
                         variant="outline-warning fw-bold text-dark"
                         onClick={incrCount}
@@ -159,6 +167,7 @@ const Product: React.FunctionComponent<IProductProps> = ({
                                 ...prevNames,
                                 ...multi(product.id, counterNum),
                             ]);
+                            handleClick();
                         }}
                     >
                         ДОБАВИТЬ В КОРЗИНУ

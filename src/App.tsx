@@ -25,6 +25,7 @@ function App() {
     const categoryValue = categoryData;
 
     const [cardValue, setCardValue] = useLocalStorage("cards", []);
+
     const dbData = myData;
     return (
         <>
@@ -39,7 +40,7 @@ function App() {
             <Routes>
                 <Route
                     path="/cardPage"
-                    element={<CardPage dbData={dbData} cardValue={cardValue} />}
+                    element={<CardPage dbData={dbData} cardValue={cardValue} setCardValue={setCardValue}/>}
                 />
                 <Route
                     path="/"

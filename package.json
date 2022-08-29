@@ -2,6 +2,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@emotion/react": "^11.10.0",
+        "@emotion/styled": "^11.10.0",
         "@fortawesome/free-solid-svg-icons": "^6.1.2",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.3.0",
@@ -9,6 +11,7 @@
         "@types/jest": "^27.5.2",
         "@types/node": "^16.11.49",
         "bootstrap": "^5.2.0",
+        "notistack": "^2.0.5",
         "react": "^18.2.0",
         "react-bootstrap": "^2.5.0",
         "react-custom-scrollbars-2": "^4.5.0",

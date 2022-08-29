@@ -7,9 +7,10 @@ import CardItem from "../components/CardItem";
 interface ICardPage {
     dbData: IProduct[];
     cardValue: any;
+    setCardValue: any;
 }
 
-function CardPage({ dbData, cardValue }: ICardPage) {
+function CardPage({ dbData, cardValue, setCardValue }: ICardPage) {
     function toCurrencForm(number: number) {
         return new Intl.NumberFormat("ru-KZ", {
             style: "currency",
@@ -24,24 +25,49 @@ function CardPage({ dbData, cardValue }: ICardPage) {
         window.location.reload();
     };
 
-    const [prodPrice, setGetPrice] = useState([]);
-    let prodPriceSum = 0;
-    for (let i = 0; i < prodPrice.length; i++) {
-        prodPriceSum += prodPrice[i];
-    }
+    const dataToArr = () => {
+        let tmp: any = [];
+        cardValue.map((item: any) =>
+            dbData.filter((product) => {
+                if (product.id === item) {
+                    tmp.push(product);
+                }
+                return "";
+            })
+        );
+        return tmp;
+    };
 
-    const [kitchenPrice, setGetKithcenPrice] = useState([]);
-    let kitchenPriceSum = 0;
-    for (let i = 0; i < kitchenPrice.length; i++) {
-        kitchenPriceSum += kitchenPrice[i];
-    }
+    const showSum = () => {
+        let arr = dataToArr();
+        let sourcePriceArr = [];
+        let kitchenPriceArr = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].sourceSite === "PROFTORG") {
+                sourcePriceArr.push(Number(arr[i].price));
+                kitchenPriceArr.push(Number(arr[i].price) * 1.25);
+            } else if (arr[i].sourceSite === "DEDTRADE") {
+                sourcePriceArr.push(Number(arr[i].price));
+                kitchenPriceArr.push(Number(arr[i].price) * 1.1);
+            } else if (arr[i].sourceSite === "PROKITCHEN") {
+                sourcePriceArr.push(Number(arr[i].price));
+                kitchenPriceArr.push(Number(arr[i].price) * 1.1);
+            }
+        }
+        let sourcePriceSum = 0;
+        let kitchenPriceSum = 0;
+        sourcePriceArr.forEach((item) => {
+            sourcePriceSum += item;
+        });
+        kitchenPriceArr.forEach((item) => {
+            kitchenPriceSum += item;
+        });
 
-    const [margin, setGetMargin] = useState([]);
-    let marginSum = 0;
-    for (let i = 0; i < margin.length; i++) {
-        marginSum += margin[i];
-    }
-
+        setSourceSum(sourcePriceSum);
+        setKitchenSum(kitchenPriceSum);
+    };
+    const [sourceSum, setSourceSum] = useState(0);
+    const [kitchenSum, setKitchenSum] = useState(0);
     return (
         <>
             <Container className="d-flex flex-wrap justify-content-around mt-5">
@@ -61,47 +87,59 @@ function CardPage({ dbData, cardValue }: ICardPage) {
                     <Button variant="secondary" disabled size="sm">
                         DOWLOAD EXCEL
                     </Button>
+                    <Button
+                        variant="success fw-bold"
+                        size="sm"
+                        onClick={showSum}
+                    >
+                        СУММА
+                    </Button>
                 </Container>
 
                 <Table bordered responsive className="mt-5 text-center">
                     <thead>
                         <tr>
-                            <th>ФОТО</th>
-                            <th>НАЗВАНИЕ</th>
-                            <th>ОПИСАНИЕ</th>
-                            <th>
-                                PROFTORG{"\n"}
-                                {toCurrencForm(prodPriceSum)}
+                            <th className="p-0"></th>
+                            <th className="p-0">ФОТО</th>
+                            <th className="p-0">НАЗВАНИЕ</th>
+                            <th className="p-0">ОПИСАНИЕ</th>
+                            <th className="p-0">
+                                PRICE SUM:{"\n"}
+                                {toCurrencForm(sourceSum)}
                             </th>
-                            <th>
-                                KITCHEN{"\n"}
-                                {toCurrencForm(kitchenPriceSum)}
+                            <th className="p-0">
+                                KITCHEN SUM: {"\n"}
+                                {toCurrencForm(kitchenSum)}
                             </th>
-                            <th>
-                                МАРЖА{"\n"}
-                                {toCurrencForm(marginSum)}
+                            <th className="p-0">
+                                МАРЖА SUM:{"\n"}
+                                {toCurrencForm(kitchenSum - sourceSum)}
                             </th>
                         </tr>
                     </thead>
-                    <tbody >
-                        {cardValue.map((item: any) =>
-                            dbData
-                                .filter((product) => {
-                                    if (product.id === item) {
-                                        return product;
-                                    }
-                                    return "";
-                                })
-                                .map((product, index) => (
-                                    <CardItem
-                                        product={product}
-                                        key={index}
-                                        setGetPrice={setGetPrice}
-                                        setGetKithcenPrice={setGetKithcenPrice}
-                                        setGetMargin={setGetMargin}
-                                    />
-                                ))
-                        )}
+                    <tbody>
+                        {cardValue
+                            .filter(
+                                (item: string, index: number) =>
+                                    cardValue.indexOf(item) === index
+                            )
+                            .map((item: any) =>
+                                dbData
+                                    .filter((product) => {
+                                        if (product.id === item) {
+                                            return product;
+                                        }
+                                        return "";
+                                    })
+                                    .map((product, index) => (
+                                        <CardItem
+                                            cardValue={cardValue}
+                                            setCardValue={setCardValue}
+                                            product={product}
+                                            key={index}
+                                        />
+                                    ))
+                            )}
                     </tbody>
                 </Table>
             </Container>

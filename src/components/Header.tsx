@@ -79,7 +79,7 @@ const Header = ({
                                     size="sm"
                                     onClick={handleShow}
                                 >
-                                    Что Нового? Ver1.81
+                                    Что Нового? Ver1.85
                                 </Button>
                                 <Offcanvas
                                     show={showPopover}
@@ -87,7 +87,7 @@ const Header = ({
                                 >
                                     <Offcanvas.Header closeButton>
                                         <Offcanvas.Title>
-                                            Что Нового? Ver1.81
+                                            Что Нового? Ver1.85
                                         </Offcanvas.Title>
                                     </Offcanvas.Header>
                                     <Offcanvas.Body>
@@ -135,6 +135,27 @@ const Header = ({
                                             <li>Исправил корзину</li>
                                             <li>
                                                 В корзине появилась сумма цен
+                                            </li>
+                                        </ul>
+                                        <h4>29/08/2022</h4>
+                                        <ul>
+                                            <li>
+                                                Показ суммы по нажатию на кнопку в
+                                                корзине
+                                            </li>
+                                            <li>
+                                                Добавлять/убавлять количество в
+                                                корзине
+                                            </li>
+                                            <li>
+                                                Уведомления о добавлении в
+                                                корзину
+                                            </li>
+                                            <li>
+                                                {"Клик на название -> на сайт продукта в корзине"}
+                                            </li>
+                                            <li>
+                                                Обновил на карточки на 29/08/2022
                                             </li>
                                         </ul>
                                     </Offcanvas.Body>
