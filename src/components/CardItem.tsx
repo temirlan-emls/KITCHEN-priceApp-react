@@ -84,9 +84,36 @@ const CardItem: React.FunctionComponent<ICardItemProps> = ({
 
     return (
         <>
-            <tr className="m-0"></tr>
             <tr>
-                <th className="align-middle p-1">
+
+                <th className="p-0">
+                    {" "}
+                    <Card.Img
+                        variant="top"
+                        src={product.imgLink}
+                        style={{
+                            objectFit: "fill",
+                            minWidth: "200px",
+                            maxWidth: "230px",
+                        }}
+                    />
+                </th>
+                <td className="fw-normal" style={{ maxWidth: "230px" }}>
+                    <a
+                        href={product.prodLink}
+                        style={{ color: "inherit", textDecoration: "inherit" }}
+                        rel="noreferrer"
+                        target="_blank"
+                    >
+                        {product.title}
+                    </a>
+                </td>
+                <td className="fw-normal">
+                    <Scrollbars style={{ maxWidth: "350px",minWidth: "300px", height: 200 }}>
+                        {product.desc.replace(/([А-Я])/g, "\n $1").trim()}
+                    </Scrollbars>
+                </td>
+                <th className="align-middle p-4">
                     <ButtonGroup vertical>
                         <Button
                             size="sm"
@@ -117,42 +144,15 @@ const CardItem: React.FunctionComponent<ICardItemProps> = ({
                         </Button>
                     </ButtonGroup>
                 </th>
-                <th className="p-0">
-                    {" "}
-                    <Card.Img
-                        variant="top"
-                        src={product.imgLink}
-                        style={{
-                            objectFit: "fill",
-                            minWidth: "200px",
-                            maxWidth: "230px",
-                        }}
-                    />
-                </th>
-                <td className="fw-normal" style={{ maxWidth: "230px" }}>
-                    <a
-                        href={product.prodLink}
-                        style={{ color: "inherit", textDecoration: "inherit" }}
-                        rel="noreferrer"
-                        target="_blank"
-                    >
-                        {product.title}
-                    </a>
-                </td>
-                <td className="fw-normal">
-                    <Scrollbars style={{ width: 450, height: 200 }}>
-                        {product.desc.replace(/([А-Я])/g, "\n $1").trim()}
-                    </Scrollbars>
-                </td>
                 <td className="align-middle p-0">
                     <h4 style={priceStyle}>
                         <p className="fw-light fs-6 m-0">Цена за 1 шт.</p>
                         <Badge bg="secondary">
-                            {toCurrencForm(product.price)}
+                            {toCurrencForm(kitchenPriceData)}
                         </Badge>
                         <br />
                         <Badge bg="warning" text="dark">
-                            {toCurrencForm(sourcePiceCount)}
+                            {toCurrencForm(kitchenPriceCount)}
                         </Badge>
                         <p className="fw-light fs-6 m-0">
                             Цена за {cardCount} шт.
@@ -163,11 +163,11 @@ const CardItem: React.FunctionComponent<ICardItemProps> = ({
                     <h4 style={priceStyle}>
                         <p className="fw-light fs-6 m-0">Цена за 1 шт.</p>
                         <Badge bg="secondary">
-                            {toCurrencForm(kitchenPriceData)}
+                            {toCurrencForm(product.price)}
                         </Badge>
                         <br />
                         <Badge bg="warning" text="dark">
-                            {toCurrencForm(kitchenPriceCount)}
+                            {toCurrencForm(sourcePiceCount)}
                         </Badge>
                         <p className="fw-light fs-6 m-0">
                             Цена за {cardCount} шт.

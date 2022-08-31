@@ -3,6 +3,7 @@ import { Button, Container, Table } from "react-bootstrap";
 import { IProduct } from "../models/product.model";
 import { useNavigate } from "react-router-dom";
 import CardItem from "../components/CardItem";
+import * as XLSX from "xlsx";
 
 interface ICardPage {
     dbData: IProduct[];
@@ -40,6 +41,7 @@ function CardPage({ dbData, cardValue, setCardValue }: ICardPage) {
 
     const showSum = () => {
         let arr = dataToArr();
+
         let sourcePriceArr = [];
         let kitchenPriceArr = [];
         for (let i = 0; i < arr.length; i++) {
@@ -68,6 +70,45 @@ function CardPage({ dbData, cardValue, setCardValue }: ICardPage) {
     };
     const [sourceSum, setSourceSum] = useState(0);
     const [kitchenSum, setKitchenSum] = useState(0);
+
+    const handleExport = () => {
+        let tmp = cardValue.map((item: any) =>
+            dbData.filter((product) => {
+                if (product.id === item) {
+                    return product;
+                }
+                return "";
+            })
+        );
+
+        console.log(tmp.flat());
+
+        let wb = XLSX.utils.book_new();
+        let ws = XLSX.utils.table_to_sheet(
+            document.getElementById("cardTable")
+        );
+
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "Cart.xlsx");
+    };
+    // const handleExport = () => {
+    //     let tmp = cardValue.map((item: any) =>
+    //         dbData.filter((product) => {
+    //             if (product.id === item) {
+    //                 return product;
+    //             }
+    //             return ''
+    //         })
+    //     );
+
+    //     console.log(tmp.flat());
+
+    //     let wb = XLSX.utils.book_new();
+    //     let ws = XLSX.utils.json_to_sheet(Object.values(tmp.flat()));
+
+    //     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    //     XLSX.writeFile(wb, "Cart.xlsx");
+    // };
     return (
         <>
             <Container className="d-flex flex-wrap justify-content-around mt-5">
@@ -84,7 +125,11 @@ function CardPage({ dbData, cardValue, setCardValue }: ICardPage) {
                     <Button variant="secondary" disabled size="sm">
                         DOWLOAD PDF
                     </Button>
-                    <Button variant="secondary" disabled size="sm">
+                    <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={handleExport}
+                    >
                         DOWLOAD EXCEL
                     </Button>
                     <Button
@@ -96,21 +141,27 @@ function CardPage({ dbData, cardValue, setCardValue }: ICardPage) {
                     </Button>
                 </Container>
 
-                <Table bordered responsive className="mt-5 text-center">
+                <Table
+                    bordered
+                    responsive
+                    className="mt-5 text-center"
+                    id="cardTable"
+                >
                     <thead>
                         <tr>
-                            <th className="p-0"></th>
                             <th className="p-0">ФОТО</th>
                             <th className="p-0">НАЗВАНИЕ</th>
                             <th className="p-0">ОПИСАНИЕ</th>
-                            <th className="p-0">
-                                PRICE SUM:{"\n"}
-                                {toCurrencForm(sourceSum)}
-                            </th>
+                            <th className="p-0">Кол-во</th>
                             <th className="p-0">
                                 KITCHEN SUM: {"\n"}
                                 {toCurrencForm(kitchenSum)}
                             </th>
+                            <th className="p-0">
+                                PRICE SUM:{"\n"}
+                                {toCurrencForm(sourceSum)}
+                            </th>
+
                             <th className="p-0">
                                 МАРЖА SUM:{"\n"}
                                 {toCurrencForm(kitchenSum - sourceSum)}
