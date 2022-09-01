@@ -117,8 +117,8 @@ function CardPage({ dbData, cardValue, setCardValue }: ICardPage) {
                     <Button
                         variant="outline-warning fw-bold"
                         style={{ color: "black" }}
-                        onClick={clearStorage}
                         size="sm"
+                        onClick={clearStorage}
                     >
                         ОЧИСТИТЬ КОРЗИНУ
                     </Button>

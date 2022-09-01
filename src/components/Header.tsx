@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import {
     Badge,
     Button,
@@ -9,7 +9,7 @@ import {
     Nav,
     Navbar,
     NavDropdown,
-    Offcanvas,
+    ButtonGroup,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
@@ -20,10 +20,11 @@ const Header = ({
     navigateToCardPage,
     navigateMainPage,
     cardValue,
+    categoryValue
 }: any) => {
-    const [showPopover, setShowPopover] = useState(false);
-    const handleClose = () => setShowPopover(false);
-    const handleShow = () => setShowPopover(true);
+    // const [showPopover, setShowPopover] = useState(false);
+    // const handleClose = () => setShowPopover(false);
+    // const handleShow = () => setShowPopover(true);
     const toMainPage = () => {
         navigateMainPage();
     };
@@ -44,7 +45,6 @@ const Header = ({
         input.value = "";
         setSeachData("");
     };
-
     return (
         <>
             <Navbar
@@ -59,7 +59,7 @@ const Header = ({
                         href="#home"
                         onClick={() => {
                             toMainPage();
-                            setCategoryData(["clear", "clear"]);
+                            setCategoryData(["clear", ""]);
                         }}
                     >
                         <img
@@ -74,7 +74,7 @@ const Header = ({
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <>
-                                <Button
+                                {/* <Button
                                     variant="outline-success fw-bold"
                                     size="sm"
                                     onClick={handleShow}
@@ -140,8 +140,8 @@ const Header = ({
                                         <h4>29/08/2022</h4>
                                         <ul>
                                             <li>
-                                                Показ суммы по нажатию на кнопку в
-                                                корзине
+                                                Показ суммы по нажатию на кнопку
+                                                в корзине
                                             </li>
                                             <li>
                                                 Добавлять/убавлять количество в
@@ -152,72 +152,79 @@ const Header = ({
                                                 корзину
                                             </li>
                                             <li>
-                                                {"Клик на название -> на сайт продукта в корзине"}
+                                                {
+                                                    "Клик на название -> на сайт продукта в корзине"
+                                                }
                                             </li>
                                             <li>
-                                                Обновил на карточки на 29/08/2022
+                                                Обновил на карточки на
+                                                29/08/2022
                                             </li>
                                         </ul>
                                     </Offcanvas.Body>
-                                </Offcanvas>
+                                </Offcanvas> */}
                             </>
-                            <NavDropdown
-                                title="Реквизиты"
-                                id="collasible-nav-dropdown"
-                                className="fw-bold"
-                                style={{ color: "black" }}
-                            >
-                                <NavDropdown.Item
-                                    href="#COPY/BK"
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(BKreks);
-                                        swal(
-                                            "Скопированно!",
-                                            'Реквизиты ТОО "BK Trading Company" в буфере обмена',
-                                            "success"
-                                        );
-                                    }}
-                                >
-                                    BK Trading - скопировать
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#DOWNLOAD/BK">
-                                    <Link
-                                        to="/reks/BKreks.pdf"
-                                        target="_blank"
-                                        download
-                                    >
-                                        BK Trading - скачать PDF
-                                    </Link>
-                                </NavDropdown.Item>
 
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item
-                                    href="#COPY/Kitchen"
+                            <ButtonGroup size="sm">
+                                {/* <Button
                                     onClick={() => {
-                                        navigator.clipboard.writeText(
-                                            KITCHENreks
-                                        );
-                                        swal(
-                                            "Скопированно!",
-                                            'Реквизиты ТОО "Kitchen.kz в буфере обмена',
-                                            "success"
-                                        );
+                                        toMainPage();
+                                        setCategoryData(["allprod", ""]);
                                     }}
+                                    
                                 >
-                                    Kitchen.kz - скопировать
-                                </NavDropdown.Item>
-
-                                <NavDropdown.Item href="#DOWNLOAD/Kitchen">
-                                    <Link
-                                        to="/reks/KITCHENreks.pdf"
-                                        target="_blank"
-                                        download
-                                    >
-                                        Kitchen.kz - скачать PDF
-                                    </Link>
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown
+                                    All Products
+                                </Button> */}
+                                <Button
+                                    onClick={() => {
+                                        toMainPage();
+                                        setCategoryData(["PROFTORG", ""]);
+                                        scrollToTop()
+                                    }}
+                                    variant={
+                                        categoryValue[0] === "PROFTORG"
+                                            ? "warning fw-bold"
+                                            : "outline-warning fw-bold"
+                                    }
+                                    style={{ color: "black" }}
+                                    size="sm"
+                                >
+                                    PROFTORG
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        toMainPage();
+                                        setCategoryData(["DEDTRADE", ""]);
+                                        scrollToTop()
+                                    }}
+                                    variant={
+                                        categoryValue[0] === "DEDTRADE"
+                                            ? "warning fw-bold"
+                                            : "outline-warning fw-bold"
+                                    }
+                                    style={{ color: "black" }}
+                                    size="sm"
+                                >
+                                    DEDTRADE
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        toMainPage();
+                                        setCategoryData(["PROKITCHEN", ""]);
+                                        scrollToTop()
+                                    }}
+                                    variant={
+                                        categoryValue[0] === "PROKITCHEN"
+                                            ? "warning fw-bold"
+                                            : "outline-warning fw-bold"
+                                    }
+                                    style={{ color: "black" }}
+                                    size="sm"
+                                >
+                                    PROKITCHEN
+                                </Button>
+                            </ButtonGroup>
+                            {/* <NavDropdown
                                 title="All Products"
                                 id="collasible-nav-dropdown"
                             >
@@ -270,8 +277,8 @@ const Header = ({
                                 >
                                     All Элек-Мех
                                 </NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown
+                            </NavDropdown> */
+                            /* <NavDropdown
                                 title="Proftorg"
                                 id="collasible-nav-dropdown"
                             >
@@ -320,8 +327,8 @@ const Header = ({
                                 >
                                     Элек-Мех
                                 </NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown
+                            </NavDropdown> */
+                            /* <NavDropdown
                                 title="DedTrade"
                                 id="collasible-nav-dropdown"
                             >
@@ -370,8 +377,8 @@ const Header = ({
                                 >
                                     Элек-Мех
                                 </NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown
+                            </NavDropdown> */
+                            /* <NavDropdown
                                 title="ProKitchen"
                                 id="collasible-nav-dropdown"
                             >
@@ -438,6 +445,62 @@ const Header = ({
                                     }}
                                 >
                                     Unknow
+                                </NavDropdown.Item>
+                            </NavDropdown> */}
+                            <NavDropdown
+                                title="Реквизиты"
+                                id="collasible-nav-dropdown"
+                                className="fw-bold"
+                                style={{ color: "black" }}
+                            >
+                                <NavDropdown.Item
+                                    href="#COPY/BK"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(BKreks);
+                                        swal(
+                                            "Скопированно!",
+                                            'Реквизиты ТОО "BK Trading Company" в буфере обмена',
+                                            "success"
+                                        );
+                                    }}
+                                >
+                                    BK Trading - скопировать
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="#DOWNLOAD/BK">
+                                    <Link
+                                        to="/reks/BKreks.pdf"
+                                        target="_blank"
+                                        download
+                                    >
+                                        BK Trading - скачать PDF
+                                    </Link>
+                                </NavDropdown.Item>
+
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item
+                                    href="#COPY/Kitchen"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(
+                                            KITCHENreks
+                                        );
+                                        swal(
+                                            "Скопированно!",
+                                            'Реквизиты ТОО "Kitchen.kz в буфере обмена',
+                                            "success"
+                                        );
+                                    }}
+                                >
+                                    Kitchen.kz - скопировать
+                                </NavDropdown.Item>
+
+                                <NavDropdown.Item href="#DOWNLOAD/Kitchen">
+                                    <Link
+                                        to="/reks/KITCHENreks.pdf"
+                                        target="_blank"
+                                        download
+                                    >
+                                        Kitchen.kz - скачать PDF
+                                    </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>

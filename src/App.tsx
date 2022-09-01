@@ -21,7 +21,7 @@ function App() {
     const [searchData, setSeachData] = useState("");
     const searchValue = searchData;
 
-    const [categoryData, setCategoryData] = useState(["clear", "clear"]);
+    const [categoryData, setCategoryData] = useState(["clear", ""]);
     const categoryValue = categoryData;
 
     const [cardValue, setCardValue] = useLocalStorage("cards", []);
@@ -35,12 +35,19 @@ function App() {
                 setCategoryData={setCategoryData}
                 navigateToCardPage={navigateToCardPage}
                 navigateMainPage={navigateMainPage}
+                categoryValue={categoryValue}
             ></Header>
 
             <Routes>
                 <Route
                     path="/cardPage"
-                    element={<CardPage dbData={dbData} cardValue={cardValue} setCardValue={setCardValue}/>}
+                    element={
+                        <CardPage
+                            dbData={dbData}
+                            cardValue={cardValue}
+                            setCardValue={setCardValue}
+                        />
+                    }
                 />
                 <Route
                     path="/"

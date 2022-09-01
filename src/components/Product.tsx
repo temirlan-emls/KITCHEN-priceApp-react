@@ -10,6 +10,7 @@ import {
 import { IProduct } from "../models/product.model";
 import { useSnackbar } from "notistack";
 
+
 interface IProductProps {
     product: IProduct;
     setCardValue: any;
@@ -85,13 +86,17 @@ const Product: React.FunctionComponent<IProductProps> = ({
             autoHideDuration: 1000,
         });
     };
+
     return (
         <Card style={{ maxWidth: "18rem", minWidth: "8rem" }} className="mt-5">
-            <Card.Img
-                variant="top"
-                src={product.imgLink}
-                style={{ maxHeight: "286px" }}
-            />
+
+                {" "}
+                <Card.Img
+                    variant="top"
+                    src={product.imgLink}
+                    style={{ maxHeight: "286px" }}
+                />
+
             <Card.Body>
                 <h6>
                     <Badge bg="secondary" className="w-100">
