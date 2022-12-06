@@ -10,7 +10,6 @@ import {
 import { IProduct } from "../models/product.model";
 import { useSnackbar } from "notistack";
 
-
 interface IProductProps {
     product: IProduct;
     setCardValue: any;
@@ -35,14 +34,29 @@ const Product: React.FunctionComponent<IProductProps> = ({
     if (product.price === undefined) {
         kitchen_price = 0;
     } else if (product.sourceSite === "PROFTORG") {
-        kitchen_price = toCurrencForm(product.price * 1.25);
-        margin = toCurrencForm(product.price * 1.25 - product.price);
+        if (product.price < 100000) {
+            kitchen_price = toCurrencForm(product.price * 1.4);
+            margin = toCurrencForm(product.price * 1.4 - product.price);
+        } else {
+            kitchen_price = toCurrencForm(product.price * 1.3);
+            margin = toCurrencForm(product.price * 1.3 - product.price);
+        }
     } else if (product.sourceSite === "DEDTRADE") {
-        kitchen_price = toCurrencForm(product.price * 1.1);
-        margin = toCurrencForm(product.price * 1.1 - product.price);
+        if (product.price < 100000) {
+            kitchen_price = toCurrencForm(product.price * 1.15);
+            margin = toCurrencForm(product.price * 1.1 - product.price);
+        } else {
+            kitchen_price = toCurrencForm(product.price * 1.1);
+            margin = toCurrencForm(product.price * 1.1 - product.price);
+        }
     } else if (product.sourceSite === "PROKITCHEN") {
-        kitchen_price = toCurrencForm(product.price * 1.1);
-        margin = toCurrencForm(product.price * 1.1 - product.price);
+        if (product.price < 100000) {
+            kitchen_price = toCurrencForm(product.price * 1.15);
+            margin = toCurrencForm(product.price * 1.1 - product.price);
+        } else {
+            kitchen_price = toCurrencForm(product.price * 1.1);
+            margin = toCurrencForm(product.price * 1.1 - product.price);
+        }
     }
 
     let card_code;
@@ -89,14 +103,12 @@ const Product: React.FunctionComponent<IProductProps> = ({
 
     return (
         <Card style={{ maxWidth: "18rem", minWidth: "8rem" }} className="mt-5">
-
-                {" "}
-                <Card.Img
-                    variant="top"
-                    src={product.imgLink}
-                    style={{ maxHeight: "286px" }}
-                />
-
+            {" "}
+            <Card.Img
+                variant="top"
+                src={product.imgLink}
+                style={{ maxHeight: "286px" }}
+            />
             <Card.Body>
                 <h6>
                     <Badge bg="secondary" className="w-100">
